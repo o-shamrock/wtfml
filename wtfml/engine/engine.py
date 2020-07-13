@@ -115,14 +115,14 @@ class Engine:
                 for key, value in data.items():
                     data[key] = value.to(device)
                 predictions, loss = model(**data)
+                predictions = predictions.cpu()
+                final_predictions.append(predictions) 
                 if use_tpu:
                     reduced_loss = xm.mesh_reduce('loss_reduce', loss, reduce_fn)
                     losses.update(reduced_loss.item(), data_loader.batch_size)
                 else:
-                    losses.update(loss.item(), data_loader.batch_size)
+                    losses.update(loss.item(), data_loader.batch_size)                   
                 tk0.set_postfix(loss=losses.avg)
-                predictions = predictions.cpu()
-                final_predictions.append(predictions)
         return final_predictions, losses.avg
 
     @staticmethod

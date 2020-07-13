@@ -114,7 +114,7 @@ class Engine:
             for b_idx, data in enumerate(tk0):
                 for key, value in data.items():
                     data[key] = value.to(device)
-                _, loss = model(**data)
+                predictions, loss = model(**data)
                 if use_tpu:
                     reduced_loss = xm.mesh_reduce('loss_reduce', loss, reduce_fn)
                     losses.update(reduced_loss.item(), data_loader.batch_size)

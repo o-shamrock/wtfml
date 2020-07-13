@@ -121,7 +121,7 @@ class Engine:
                 else:
                     losses.update(loss.item(), data_loader.batch_size)
                 tk0.set_postfix(loss=losses.avg)
-        return losses.avg
+        return predictions, losses.avg
 
     @staticmethod
     def predict(data_loader, model, device, use_tpu=False):

@@ -121,14 +121,14 @@ class Engine:
                     print(f"batch {b_idx}")
                     print(f"batch prediction shape {predictions.shape}")
                     print(predictions)
-                    print(f"final prediction shape {inal_predictions.shape}")
+                    print(f"final prediction shape {final_predictions.shape}")
                     print(final_predictions.head(5))
                     print(final_predictions.tail(5))
                 if b_idx==tk0-1:
                     print(f"batch {b_idx}")
                     print(f"batch prediction shape {predictions.shape}")
                     print(predictions)
-                    print(f"final prediction shape {inal_predictions.shape}")
+                    print(f"final prediction shape {final_predictions.shape}")
                     print(final_predictions.head(5))
                     print(final_predictions.tail(5))    
                 if use_tpu:
@@ -157,14 +157,14 @@ class Engine:
                     print(f"batch {b_idx}")
                     print(f"batch prediction shape {predictions.shape}")
                     print(predictions)
-                    print(f"final prediction shape {inal_predictions.shape}")
+                    print(f"final prediction shape {final_predictions.shape}")
                     print(final_predictions.head(5))
                     print(final_predictions.tail(5))
                 if b_idx==tk0-1:
                     print(f"batch {b_idx}")
                     print(f"batch prediction shape {predictions.shape}")
                     print(predictions)
-                    print(f"final prediction shape {inal_predictions.shape}")
+                    print(f"final prediction shape {final_predictions.shape}")
                     print(final_predictions.head(5))
                     print(final_predictions.tail(5))    
         return final_predictions

@@ -128,8 +128,8 @@ class Engine:
                     print(f"batch prediction shape {predictions.shape}")
                     print(predictions)
                     print(f"final prediction shape {len(final_predictions)}")
-                    print(final_predictions[:16])
-                    print(final_predictions[-16:])    
+                    print(final_predictions[:1])
+                    print(final_predictions[-2:])    
                 if use_tpu:
                     reduced_loss = xm.mesh_reduce('loss_reduce', loss, reduce_fn)
                     losses.update(reduced_loss.item(), data_loader.batch_size)
@@ -163,6 +163,6 @@ class Engine:
                     print(f"batch prediction shape {predictions.shape}")
                     print(predictions)
                     print(f"final prediction shape {len(final_predictions)}")
-                    print(final_predictions[:16])
-                    print(final_predictions[-16:])    
+                    print(final_predictions[:1])
+                    print(final_predictions[-2:])    
         return final_predictions

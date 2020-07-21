@@ -117,19 +117,6 @@ class Engine:
                 predictions, loss = model(**data)
                 predictions = predictions.cpu()
                 final_predictions.append(predictions) 
-                if b_idx==0:
-                    print(f"batch {b_idx}")
-                    print(f"batch prediction shape {predictions.shape}")
-                    print(predictions)
-                    print(f"final prediction shape {len(final_predictions)}")
-                    print(final_predictions)
-                if b_idx==len(data_loader)-1:
-                    print(f"batch {b_idx}")
-                    print(f"batch prediction shape {predictions.shape}")
-                    print(predictions)
-                    print(f"final prediction shape {len(final_predictions)}")
-                    print(final_predictions[:1])
-                    print(final_predictions[-2:])    
                 if use_tpu:
                     reduced_loss = xm.mesh_reduce('loss_reduce', loss, reduce_fn)
                     losses.update(reduced_loss.item(), data_loader.batch_size)
@@ -151,18 +138,5 @@ class Engine:
                     data[key] = value.to(device)
                 predictions, _ = model(**data)
                 predictions = predictions.cpu()
-                final_predictions.append(predictions)
-                if b_idx==0:
-                    print(f"batch {b_idx}")
-                    print(f"batch prediction shape {predictions.shape}")
-                    print(predictions)
-                    print(f"final prediction shape {len(final_predictions)}")
-                    print(final_predictions)
-                if b_idx==len(data_loader)-1:
-                    print(f"batch {b_idx}")
-                    print(f"batch prediction shape {predictions.shape}")
-                    print(predictions)
-                    print(f"final prediction shape {len(final_predictions)}")
-                    print(final_predictions[:1])
-                    print(final_predictions[-2:])    
+                final_predictions.append(predictions) 
         return final_predictions

@@ -122,9 +122,8 @@ class Engine:
                     print(f"batch prediction shape {predictions.shape}")
                     print(predictions)
                     print(f"final prediction shape {len(final_predictions)}")
-                    print(final_predictions[:16])
-                    print(final_predictions[-16:]) 
-                if b_idx==tk0-1:
+                    print(final_predictions)
+                if b_idx==len(data_loader)-1:
                     print(f"batch {b_idx}")
                     print(f"batch prediction shape {predictions.shape}")
                     print(predictions)
@@ -158,9 +157,8 @@ class Engine:
                     print(f"batch prediction shape {predictions.shape}")
                     print(predictions)
                     print(f"final prediction shape {len(final_predictions)}")
-                    print(final_predictions[:16])
-                    print(final_predictions[-16:]) 
-                if b_idx==tk0-1:
+                    print(final_predictions)
+                if b_idx==len(data_loader)-1:
                     print(f"batch {b_idx}")
                     print(f"batch prediction shape {predictions.shape}")
                     print(predictions)

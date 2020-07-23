@@ -95,6 +95,9 @@ class Engine:
                 losses.update(loss.item(), data_loader.batch_size)
             
             tk0.set_postfix(loss=losses.avg)
+            
+        if not self.use_tpu:
+            tk0.close()
         return final_predictions, losses.avg
 
     @staticmethod
@@ -124,6 +127,9 @@ class Engine:
                 else:
                     losses.update(loss.item(), data_loader.batch_size)                   
                 tk0.set_postfix(loss=losses.avg)
+                
+            if not self.use_tpu:
+                tk0.close()
         return final_predictions, losses.avg
 
     @staticmethod
@@ -140,4 +146,7 @@ class Engine:
                 predictions, _ = model(**data)
                 predictions = predictions.cpu()
                 final_predictions.append(predictions) 
+                
+            if not self.use_tpu:
+                tk0.close()    
         return final_predictions

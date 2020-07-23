@@ -65,7 +65,7 @@ class Engine:
             if accumulation_steps == 1 and b_idx == 0:
                 optimizer.zero_grad()
             predictions, loss = model(**data)
-            predictions = predictions.cpu().numpy()
+            predictions = predictions.detach().cpu()
             final_predictions.append(predictions) 
 
             if not use_tpu:

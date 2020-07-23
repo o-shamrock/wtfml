@@ -56,10 +56,11 @@ class Engine:
                 total=len(data_loader),
                 disable=xm.get_ordinal()==0
             )
-        else:
-            tk0 = tqdm(data_loader, total=len(data_loader))
+        #else:
+            #tk0 = tqdm(data_loader, total=len(data_loader))
 
-        for b_idx, data in enumerate(tk0):
+        #for b_idx, data in enumerate(tk0):
+        for b_idx, data in enumerate(data_loader):
             for key, value in data.items():
                 data[key] = value.to(device)
             if accumulation_steps == 1 and b_idx == 0:
@@ -94,10 +95,10 @@ class Engine:
             else:
                 losses.update(loss.item(), data_loader.batch_size)
             
-            tk0.set_postfix(loss=losses.avg)
+            #tk0.set_postfix(loss=losses.avg)
             
-        if not use_tpu:
-            tk0.close()
+        #if not use_tpu:
+            #tk0.close()
         return final_predictions, losses.avg
 
     @staticmethod
@@ -113,9 +114,10 @@ class Engine:
                     total=len(data_loader),
                     disable=xm.get_ordinal()==0
                 )
-            else:
-                tk0 = tqdm(data_loader, total=len(data_loader))
-            for b_idx, data in enumerate(tk0):
+            #else:
+                #tk0 = tqdm(data_loader, total=len(data_loader))
+            #for b_idx, data in enumerate(tk0):
+            for b_idx, data in enumerate(data_loader):    
                 for key, value in data.items():
                     data[key] = value.to(device)
                 predictions, loss = model(**data)
@@ -126,10 +128,10 @@ class Engine:
                     losses.update(reduced_loss.item(), data_loader.batch_size)
                 else:
                     losses.update(loss.item(), data_loader.batch_size)                   
-                tk0.set_postfix(loss=losses.avg)
+                #tk0.set_postfix(loss=losses.avg)
                 
-            if not use_tpu:
-                tk0.close()
+            #if not use_tpu:
+                #tk0.close()
         return final_predictions, losses.avg
 
     @staticmethod
@@ -139,14 +141,15 @@ class Engine:
         if use_tpu:
             raise Exception("TPU not available for predict yet!")
         with torch.no_grad():
-            tk0 = tqdm(data_loader, total=len(data_loader))
-            for b_idx, data in enumerate(tk0):
+            #tk0 = tqdm(data_loader, total=len(data_loader))
+            #for b_idx, data in enumerate(tk0):
+            for b_idx, data in enumerate(data_loader):    
                 for key, value in data.items():
                     data[key] = value.to(device)
                 predictions, _ = model(**data)
                 predictions = predictions.cpu()
                 final_predictions.append(predictions) 
                 
-            if not use_tpu:
-                tk0.close()    
+            #if not use_tpu:
+                #tk0.close()    
         return final_predictions

@@ -45,7 +45,7 @@ class Engine:
         if fp16:
             accumulation_steps = 1
         losses = AverageMeter()
-        predictions = []
+        final_predictions = []
         model.train()
         if accumulation_steps > 1:
             optimizer.zero_grad()
@@ -64,7 +64,9 @@ class Engine:
                 data[key] = value.to(device)
             if accumulation_steps == 1 and b_idx == 0:
                 optimizer.zero_grad()
-            _, loss = model(**data)
+            predictions, loss = model(**data)
+            predictions = predictions.cpu()
+            final_predictions.append(predictions) 
 
             if not use_tpu:
                 with torch.set_grad_enabled(True):
@@ -93,13 +95,12 @@ class Engine:
                 losses.update(loss.item(), data_loader.batch_size)
             
             tk0.set_postfix(loss=losses.avg)
-        return losses.avg
+        return final_predictions, losses.avg
 
     @staticmethod
     def evaluate(data_loader, model, device, use_tpu=False):
         losses = AverageMeter()
         final_predictions = []
-        final_targets = []
         model.eval()
         with torch.no_grad():
             if use_tpu:
